@@ -1,37 +1,24 @@
-# Azure-Lighthouse-Policy
+# Azure Lighthouse policy definition
 
-Azure Policy designed for management group assignment. The policy will automatically assign an Azure Lighthouse definition to new subscriptions using a _deploy if not exists_ policy effect.
+Example Azure Policy for automated delegation.
 
-- The policy is defined with no parameters
-- Specify a single parameter for the definition resource ID when assigning
+- Takes a single parameter for the definition resource ID
 - New subscriptions created under the management group are automatically delegated
-- The _deploy if not exists effect_ supports remediation of non-compliant subscription scopes
-- Policy assignments can exclude areas
-    - E.g. assign at Azure Landing Zone and exclude Decommissioned and Sandpit scopes
+- Deploy if Not Exists effect supports remediation of non-compliant subscription scopes
+- Policy assignments can exclude areas e.g. assign at Azure Landing Zone and exclude Decommissioned and Sandpit scopes
 
 The example commands assume you are creating the policy definition at the management group es.
 
-Notes
+Note that the system assigned managed identity will have Owner for the template deployment as this is required for Azure Lighthouse assignments.
 
-- the policy assignment's system assigned managed identity will have Owner role
-- the Owner role is required for Azure Lighthouse assignments
-- the managed identity will need read permissions on the Azure Lighthouse definition
+The managed identuty will need to have
 
-## Example commands
-
-### Azure CLI
-
-### URIs
-
-```shell
-az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-uri assignment_policy.json --parameters @assignment_policy.standard.parameters.json
-```
-
-#### Local
+## ARM
 
 ```shell
 az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-file assignment_policy.json --parameters @assignment_policy.standard.parameters.json
 ```
+
 
 ## Additional commands
 
