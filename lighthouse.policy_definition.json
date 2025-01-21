@@ -20,15 +20,15 @@
           "lighthouseDefinitionId": {
             "type": "String",
             "metadata": {
-              "displayName": "Azure Lighthouse definition ID",
-              "description": "Resource ID for the Azure Lighthouse definition to check and assign."
+              "description": "Resource ID for the Azure Lighthouse definition to check and assign.",
+              "displayName": "Azure Lighthouse definition ID"
             }
           }
         },
         "policyRule": {
           "if": {
-            "field": "type",
-            "equals": "Microsoft.Resources/subscriptions"
+            "equals": "Microsoft.Resources/subscriptions",
+            "field": "type"
           },
           "then": {
             "effect": "DeployIfNotExists",
