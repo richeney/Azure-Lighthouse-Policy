@@ -5,9 +5,9 @@ Azure Policy designed for management group assignment. The policy will automatic
 - The policy is defined with no parameters
 - Specify a single parameter for the definition resource ID when assigning
 - New subscriptions created under the management group are automatically delegated
-- The _deploy if not exists effect_ supports remediation of non-compliant subscription scopes
 - Policy assignments can exclude areas
-    - E.g. assign at Azure Landing Zone and exclude Decommissioned and Sandpit scopes
+  - e.g. assign at Azure Landing Zone and exclude Decommissioned and Sandpit scopes
+- The _deploy if not exists effect_ supports remediation of non-compliant subscriptions
 
 The example commands assume you are creating the policy definition at the management group es.
 
@@ -17,20 +17,26 @@ Notes
 - the Owner role is required for Azure Lighthouse assignments
 - the managed identity will need read permissions on the Azure Lighthouse definition
 
-## Example commands
-
-### Azure CLI
-
-### URIs
+The bicep file is a straight decompilation from the ARM template using:
 
 ```shell
-az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-uri assignment_policy.json --parameters @assignment_policy.standard.parameters.json
+az bicep decompile --file lighthouse.policy_definition.json
 ```
 
-#### Local
+## Example commands
+
+### Azure CLI with the ARM template
 
 ```shell
-az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-file assignment_policy.json --parameters @assignment_policy.standard.parameters.json
+uri="https://raw.githubusercontent.com/richeney/Azure-Lighthouse-Policy/refs/heads/main/lighthouse.policy_definition.json"
+az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-uri $uri
+```
+
+### PowerShell with the Bicep file
+
+```powershell
+$uri = "https://raw.githubusercontent.com/richeney/Azure-Lighthouse-Policy/refs/heads/main/lighthouse.policy_definition.bicep"
+New-AzManagementGroupDeployment -ManagementGroupId 'es' -Name 'lighthouse' -Location 'uksouth' -TemplateUri $uri
 ```
 
 ## Additional commands
