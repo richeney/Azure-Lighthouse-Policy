@@ -40,7 +40,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "assign_azure_lighthouse" {
-  name                = "Assign-Azure-Lighthouse3"
+  name                = "Assign-Azure-Lighthouse"
   policy_type         = "Custom"
   mode                = "All"
   display_name        = "Assign Azure Lighthouse at subscription scopes"
