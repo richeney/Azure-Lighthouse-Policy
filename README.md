@@ -23,7 +23,7 @@ The bicep file is a straight decompilation from the ARM template using:
 az bicep decompile --file lighthouse.policy_definition.json
 ```
 
-## Example commands
+## Examples
 
 ### Azure CLI with the ARM template
 
@@ -37,6 +37,15 @@ az deployment mg create --management-group-id es --name lighthouse --location uk
 ```powershell
 $uri = "https://raw.githubusercontent.com/richeney/Azure-Lighthouse-Policy/refs/heads/main/lighthouse.policy_definition.bicep"
 New-AzManagementGroupDeployment -ManagementGroupId 'es' -Name 'lighthouse' -Location 'uksouth' -TemplateUri $uri
+```
+
+### Terraform module
+
+```ruby
+module "lighthouse_policy" {
+  source              = "github.com/richeney/azure_lighthouse_policy?ref=v0.1"
+  management_group_id = "es"
+}
 ```
 
 ## Additional commands
