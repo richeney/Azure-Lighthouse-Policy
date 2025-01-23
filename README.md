@@ -1,4 +1,4 @@
-# Azure-Lighthouse-Policy
+# Azure Lighthouse policy definition
 
 Azure Policy designed for management group assignment. The policy will automatically assign an Azure Lighthouse definition to new subscriptions using a _deploy if not exists_ policy effect.
 
@@ -99,7 +99,7 @@ Policy scans are triggered automatically within 30 minutes of assignments, and t
 1. View the remediations for a resource
 
     ```shell
-    az policy remediation list --resource /subscriptions/$data
+    az policy remediation list --resource $scope
     ```
 
     You can also view remediations in the portal. Navigate to the subscription or resource. Click on Policy and then Remediations and they can be found on the second tab. This is useful for troubleshooting.
