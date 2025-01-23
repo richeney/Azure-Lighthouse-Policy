@@ -28,14 +28,14 @@ az bicep decompile --file lighthouse.policy_definition.json
 ### Azure CLI with the ARM template
 
 ```shell
-uri="https://raw.githubusercontent.com/richeney/azure_lighthouse_policy/refs/heads/main/lighthouse.policy_definition.json"
+uri="https://raw.githubusercontent.com/richeney/lighthouse_policy/refs/heads/main/lighthouse.policy_definition.json"
 az deployment mg create --management-group-id es --name lighthouse --location uksouth --template-uri $uri
 ```
 
 ### PowerShell with the Bicep file
 
 ```powershell
-$uri = "https://raw.githubusercontent.com/richeney/azure_lighthouse_policy/refs/heads/main/lighthouse.policy_definition.bicep"
+$uri = "https://raw.githubusercontent.com/richeney/lighthouse_policy/refs/heads/main/lighthouse.policy_definition.bicep"
 New-AzManagementGroupDeployment -ManagementGroupId 'es' -Name 'lighthouse' -Location 'uksouth' -TemplateUri $uri
 ```
 
@@ -43,7 +43,7 @@ New-AzManagementGroupDeployment -ManagementGroupId 'es' -Name 'lighthouse' -Loca
 
 ```ruby
 module "lighthouse_policy" {
-  source              = "github.com/richeney/azure_lighthouse_policy?ref=v0.1"
+  source              = "github.com/richeney/lighthouse_policy?ref=v0.1"
   management_group_id = "es"
 }
 ```
