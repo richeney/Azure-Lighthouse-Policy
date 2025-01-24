@@ -19,7 +19,7 @@ The example commands assume you are creating the policy definition at the manage
 
 ```ruby
 module "lighthouse_policy" {
-  source              = "github.com/richeney/lighthouse_policy?ref=v0.1"
+  source              = "github.com/richeney/lighthouse_policy?ref=v0.2"
   management_group_id = "es"
 }
 ```
