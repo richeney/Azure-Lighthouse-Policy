@@ -46,3 +46,11 @@ When this policy is assigned, it will creates a system assigned managed identity
 - the policy will only deploy the template explicit with the effect ([template](./lighthouse.policy_definition.json#L59-L60))
 - the Owner role is required for Azure Lighthouse assignments ([ref](https://learn.microsoft.com/azure/lighthouse/how-to/onboard-customer#deploy-the-azure-resource-manager-template))
 - the managed identity will need read permissions on the Azure Lighthouse definition
+
+## Bicep
+
+The bicep file is a straight decompilation from the ARM template.
+
+```shell
+az bicep decompile --file lighthouse.policy_definition.json
+```
