@@ -1,42 +1,5 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 2.96.0"
-    }
-  }
-}
-
-
-variable "management_group_id" {
-  description = "The ID of the management group to assign the policy definition to. Defaults to null, i.e. subscription scope."
-  default     = null
-}
-
 locals {
-
-  management_group_id = var.management_group_id != null ? "/providers/Microsoft.Management/managementGroups/${basename(var.management_group_id)}" : null
-
-  template = jsonencode({
-    "$schema"      = "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    contentVersion = "1.0.0.0"
-
-    parameters = {
-      lighthouseDefinitionId = {
-        type = "String"
-      }
-    }
-
-    resources = [{
-      type       = "Microsoft.ManagedServices/registrationAssignments"
-      apiVersion = "2022-10-01"
-      name       = "[guid(parameters('lighthouseDefinitionId'))]"
-      properties = {
-        registrationDefinitionId = "[parameters('lighthouseDefinitionId')]"
-      }
-    }]
-  })
-
+  management_group_resource_id = var.management_group_id != null ? "/providers/Microsoft.Management/managementGroups/${basename(var.management_group_id)}" : null
 }
 
 resource "azurerm_policy_definition" "assign_azure_lighthouse" {
@@ -45,7 +8,7 @@ resource "azurerm_policy_definition" "assign_azure_lighthouse" {
   mode                = "All"
   display_name        = "Assign Azure Lighthouse at subscription scopes"
   description         = "Policy to automatically create Azure Lighthouse delegations on subscription scopes for the specified definition. Use exclusions to prevent assignment on specific subscriptions."
-  management_group_id = local.management_group_id
+  management_group_id = local.management_group_resource_id
 
   metadata = jsonencode({
     category = "Lighthouse"
@@ -119,8 +82,4 @@ resource "azurerm_policy_definition" "assign_azure_lighthouse" {
       }
     }
   })
-}
-
-output "policy_definition_id" {
-  value = azurerm_policy_definition.assign_azure_lighthouse.id
 }
